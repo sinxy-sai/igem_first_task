@@ -1,0 +1,16 @@
+{
+  "id": "4773240",
+  "name": "igem",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "41964987",
+      "name": "重新开始-copy",
+      "font_class": "zhongxinkaishi",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    }
+  ]
+}
