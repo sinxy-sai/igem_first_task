@@ -7,11 +7,15 @@
     <title>2048</title>
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/game.css">
+    <link rel="stylesheet" href="./iconfont/restart/iconfont.css">
 </head>
 
 <body>
     <div class="wrapper">
         <div class="grid-container"></div>
+    </div>
+    <div class="controls">
+        <div class="restart"><span class="iconfont icon-zhongxinkaishi"></span></div>
     </div>
     <script>
         const gridSize = 4;
@@ -170,7 +174,12 @@
                 moveTiles(event.key);
             }
         });
-
+        document.querySelector('.restart').addEventListener('click', () => {
+            createGrid();
+            addRandomTile();
+            addRandomTile();
+            renderGrid();
+        });
         createGrid();
         addRandomTile();
         addRandomTile();
