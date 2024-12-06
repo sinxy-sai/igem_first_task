@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>俄罗斯方块</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <style>
+        .wrapper {
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        #game-board {
+            margin-top: 80px;
+            width: 400px;
+            height: 600px;
+            border: 1px solid #000;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .block {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: #000;
+            left: 20px;
+            top: 20px;
+        }
+
+        .buttons {
+            width: 100%;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 70px;
+        }
+
+        .buttons button {
+            height: 30px;
+            width: 50px;
+        }
+
+        .score {
+            margin-top: 10px;
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="game-board">
+            <div class="block"></div>
+        </div>
+        <div id="buttons" class="buttons">
+            <button class="start">开始</button>
+            <button class="pause">暂停</button>
+        </div>
+        <div class="score">000</div>
+    </div>
+    </div>
+    <script>
+        const boardWidth = 10;
+        const boardHeight = 15;
+        const blockSize = 40;
+        let board = new Array(boardHeight).fill().map(() => new Array(boardWidth).fill(0));
+        const gameboard = document.querySelector('#game-board');
+        const start = document.querySelector('.start');
+        const pause = document.querySelector('.pause');
+        const score = document.querySelector('.score');
+        const Colors = ['red', 'green', 'orange', 'blue', 'pink'];
+        function () {
+
+        }
+
+    </script>
+
+</body>
+
+</html>
