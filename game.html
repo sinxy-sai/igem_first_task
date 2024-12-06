@@ -4,83 +4,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>俄罗斯方块</title>
+    <title>2048</title>
     <link rel="stylesheet" href="./css/base.css">
-    <style>
-        .wrapper {
-            width: 400px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0 auto;
-        }
-
-        #game-board {
-            margin-top: 80px;
-            width: 400px;
-            height: 600px;
-            border: 1px solid #000;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .block {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background-color: #000;
-            left: 20px;
-            top: 20px;
-        }
-
-        .buttons {
-            width: 100%;
-            position: relative;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 70px;
-        }
-
-        .buttons button {
-            height: 30px;
-            width: 50px;
-        }
-
-        .score {
-            margin-top: 10px;
-            color: #000;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/game.css">
 </head>
 
 <body>
     <div class="wrapper">
-        <div id="game-board">
-            <div class="block"></div>
-        </div>
-        <div id="buttons" class="buttons">
-            <button class="start">开始</button>
-            <button class="pause">暂停</button>
-        </div>
-        <div class="score">000</div>
-    </div>
+        <div class="grid-container"></div>
     </div>
     <script>
-        const boardWidth = 10;
-        const boardHeight = 15;
-        const blockSize = 40;
-        let board = new Array(boardHeight).fill().map(() => new Array(boardWidth).fill(0));
-        const gameboard = document.querySelector('#game-board');
-        const start = document.querySelector('.start');
-        const pause = document.querySelector('.pause');
-        const score = document.querySelector('.score');
-        const Colors = ['red', 'green', 'orange', 'blue', 'pink'];
-        function () {
+        const gridSize = 4;
+        let grid = [];
+        let score = 0;
 
+        function createGrid() {
+            for (let i = 0; i < gridSize; i++) {
+                grid[i] = [];
+                for (let j = 0; j < gridSize; j++) {
+                    grid[i][j] = 0;
+                }
+            }
         }
 
-    </script>
+        function renderGrid() {
+            const gridContainer = document.querySelector('.grid-container');
+            gridContainer.innerHTML = '';
+            for (let row of grid) {
+                for (let cell of row) {
+                    const tile = document.createElement('div');
+                    tile.classList.add('grid-cell');
+                    if (cell !== 0) {
+                        tile.classList.add('tile', `tile-${cell}`);
+                        tile.textContent = cell;
+                    }
+                    gridContainer.appendChild(tile);
+                }
+            }
+        }
 
+        function addRandomTile() {
+            let emptyCells = [];
+            for (let i = 0; i < gridSize; i++) {
+                for (let j = 0; j < gridSize; j++) {
+                    if (grid[i][j] === 0) {
+                        emptyCells.push({ x: i, y: j });
+                    }
+                }
+            }
+            if (emptyCells.length > 0) {
+                const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                grid[randomCell.x][randomCell.y] = Math.random() < 0.9 ? 2 : 4;
+            }
+        }
+
+        function moveTiles(direction) {
+            switch (direction) {
+                case 'ArrowUp':
+                    moveUp();
+                    break;
+                case 'ArrowDown':
+                    moveDown();
+                    break;
+                case 'ArrowLeft':
+                    moveLeft();
+                    break;
+                case 'ArrowRight':
+                    moveRight();
+                    break;
+            }
+            addRandomTile();
+            renderGrid();
+        }
+
+        function moveUp() {
+            for (let col = 0; col < gridSize; col++) {
+                let mergedThisCol = false;
+                for (let row = 1; row < gridSize; row++) {
+                    if (grid[row][col] !== 0) {
+                        for (let k = 0; k < row; k++) {
+                            if (grid[k][col] === 0 && !mergedThisCol) {
+                                grid[k][col] = grid[row][col];
+                                grid[row][col] = 0;
+                                break;
+                            } else if (grid[k][col] === grid[row][col] && !mergedThisCol) {
+                                grid[k][col] *= 2;
+                                grid[row][col] = 0;
+                                mergedThisCol = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        function moveDown() {
+            for (let col = 0; col < gridSize; col++) {
+                let mergedThisCol = false;
+                for (let row = gridSize - 2; row >= 0; row--) {
+                    if (grid[row][col] !== 0) {
+                        for (let k = gridSize - 1; k > row; k--) {
+                            if (grid[k][col] === 0 && !mergedThisCol) {
+                                grid[k][col] = grid[row][col];
+                                grid[row][col] = 0;
+                                break;
+                            } else if (grid[k][col] === grid[row][col] && !mergedThisCol) {
+                                grid[k][col] *= 2;
+                                grid[row][col] = 0;
+                                mergedThisCol = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        function moveLeft() {
+            for (let row = 0; row < gridSize; row++) {
+                let mergedThisRow = false;
+                for (let col = 1; col < gridSize; col++) {
+                    if (grid[row][col] !== 0) {
+                        for (let k = 0; k < col; k++) {
+                            if (grid[row][k] === 0 && !mergedThisRow) {
+                                grid[row][k] = grid[row][col];
+                                grid[row][col] = 0;
+                                break;
+                            } else if (grid[row][k] === grid[row][col] && !mergedThisRow) {
+                                grid[row][k] *= 2;
+                                grid[row][col] = 0;
+                                mergedThisRow = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        function moveRight() {
+            for (let row = 0; row < gridSize; row++) {
+                let mergedThisRow = false;
+                for (let col = gridSize - 2; col >= 0; col--) {
+                    if (grid[row][col] !== 0) {
+                        for (let k = gridSize - 1; k > col; k--) {
+                            if (grid[row][k] === 0 && !mergedThisRow) {
+                                grid[row][k] = grid[row][col];
+                                grid[row][col] = 0;
+                                break;
+                            } else if (grid[row][k] === grid[row][col] && !mergedThisRow) {
+                                grid[row][k] *= 2;
+                                grid[row][col] = 0;
+                                mergedThisRow = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+                moveTiles(event.key);
+            }
+        });
+
+        createGrid();
+        addRandomTile();
+        addRandomTile();
+        renderGrid();
+    </script>
 </body>
 
 </html>
