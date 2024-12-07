@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="./iconfont/start/iconfont.css">
     <style>
         body {
-            background-image: url(./assets/images/R-C.jpg);
+            background-image: url(./assets/images/background.png);
+            background-color: bisque;
             background-size: cover;
         }
     </style>
@@ -29,8 +30,15 @@
         <img src="./assets/images/cloud4.png" alt="">
         <img src="./assets/images/cloud2.png" alt="">
     </div>
+    <button class="theme-toggle-button">切换到黑夜模式</button>
     <script>
-
+        document.querySelector('.theme-toggle-button').addEventListener('click', function () {
+            if (document.body.classList.contains('night-mode')) {
+                document.body.classList.remove('night-mode');
+            } else {
+                document.body.classList.add('night-mode');
+            }
+        });
     </script>
 </body>
 
