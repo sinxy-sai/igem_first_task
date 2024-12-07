@@ -20,6 +20,9 @@
         <div class="home"><a href="./door.html"><img src="./assets/images/home.png" alt=""></a></div>
     </div>
     <div class="score">得分:0</div>
+    <div class="game-over">
+        游戏结束！将在 <span class="countdown">5</span> 秒后重新开始...
+    </div>
     <script>
         const gridSize = 4;
         let grid = [];
@@ -91,6 +94,7 @@
             addRandomTile();
             renderGrid();
             updatescore(Gainedpoint);
+            checkGameOver();
         }
 
         function moveUp() {
@@ -193,18 +197,63 @@
             return Gainedpoint;
         }
 
-        document.addEventListener('keydown', (event) => {
-            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
-                moveTiles(event.key);
+        function canMove() {
+            for (let i = 0; i < gridSize; i++) {
+                for (let j = 0; j < gridSize; j++) {
+                    if (grid[i][j] === 0) {
+                        return true;
+                    }
+                    if (i < gridSize - 1 && grid[i][j] === grid[i + 1][j]) {
+                        return true;
+                    }
+                    if (j < gridSize - 1 && grid[i][j] === grid[i][j + 1]) {
+                        return true;
+                    }
+                }
             }
-        });
-        document.querySelector('.restart').addEventListener('click', () => {
+            return false;
+        }
+
+        function checkGameOver() {
+            if (!canMove()) {
+                showGameOverOverlay();
+            }
+        }
+
+        function showGameOverOverlay() {
+            const overlay = document.querySelector('.game-over');
+            let countdown = 5;
+            document.querySelector('.countdown').textContent = countdown;
+            overlay.classList.add('visible');
+
+            const intervalId = setInterval(() => {
+                countdown--;
+                document.querySelector('.countdown').textContent = countdown;
+                if (countdown <= 0) {
+                    clearInterval(intervalId);
+                    restartGame();
+                }
+            }, 1000);
+        }
+
+        function restartGame() {
+            const overlay = document.querySelector('.game-over');
+            overlay.classList.remove('visible');
             createGrid();
             score = 0;
             updatescore(score);
             addRandomTile();
             addRandomTile();
             renderGrid();
+        }
+        document.addEventListener('keydown', (event) => {
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+                moveTiles(event.key);
+            }
+        });
+
+        document.querySelector('.restart').addEventListener('click', () => {
+            restartGame();
         });
         createGrid();
         addRandomTile();
