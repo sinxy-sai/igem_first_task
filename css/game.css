@@ -166,3 +166,21 @@ body {
     font-size: 100px;
     transition: background-color 0.2s ease-in-out;
 }
+
+.controls {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    z-index: 10;
+}
+
+.home a {
+    display: block;
+    width: 100px;
+    height: 100px;
+}
+
+.home img {
+    width: 100%;
+    height: 100%;
+}
