@@ -1,0 +1,16 @@
+{
+  "id": "4773240",
+  "name": "igem",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "7458011",
+      "name": "Gamepad#1",
+      "font_class": "Gamepad",
+      "unicode": "e65a",
+      "unicode_decimal": 58970
+    }
+  ]
+}

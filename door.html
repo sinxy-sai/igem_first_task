@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/door.css">
+    <link rel="stylesheet" href="./iconfont/start/iconfont.css">
+    <style>
+        body {
+            background-image: url(./assets/images/R-C.jpg);
+            background-size: cover;
+        }
+
+        .wrapper {
+            margin: 0 auto;
+            width: 800px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            width: 100%;
+        }
+
+        .logo img {
+            margin-top: 300px;
+            width: 100%;
+        }
+
+        /* 定义动画关键帧，实现放大缩小效果 */
+        @keyframes scaleAnimation {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .wrapper a {
+            display: block;
+            color: white;
+            font-size: 160px;
+            margin-top: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            animation: scaleAnimation 2s ease-in-out infinite;
+        }
+
+
+        .wrapper a:hover {
+            color: lightgray;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="logo"><img src="./assets/images/logo.png" alt=""></div>
+        <a href="./game.html" class="iconfont icon-Gamepad"></a>
+    </div>
+    <script>
+
+    </script>
+</body>
+
+</html>
