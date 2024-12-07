@@ -43,6 +43,8 @@
                     if (cell !== 0) {
                         tile.classList.add('tile', `tile-${cell}`);
                         tile.textContent = cell;
+                        tile.classList.add(`new-tile`);
+                        setTimeout(() => tile.classList.remove('new-tile'), 200);
                     }
                     gridContainer.appendChild(tile);
                 }
@@ -64,26 +66,34 @@
             }
         }
 
+        function updatescore(points) {
+            score += points;
+            document.querySelector('.score').textContent = '得分:' + score;
+        }
+
         function moveTiles(direction) {
+            let Gainedpoint = 0;
             switch (direction) {
                 case 'ArrowUp':
-                    moveUp();
+                    Gainedpoint = moveUp();
                     break;
                 case 'ArrowDown':
-                    moveDown();
+                    Gainedpoint = moveDown();
                     break;
                 case 'ArrowLeft':
-                    moveLeft();
+                    Gainedpoint = moveLeft();
                     break;
                 case 'ArrowRight':
-                    moveRight();
+                    Gainedpoint = moveRight();
                     break;
             }
             addRandomTile();
             renderGrid();
+            updatescore(Gainedpoint);
         }
 
         function moveUp() {
+            let Gainedpoint = 0;
             for (let col = 0; col < gridSize; col++) {
                 let mergedThisCol = false;
                 for (let row = 1; row < gridSize; row++) {
@@ -96,6 +106,7 @@
                             } else if (grid[k][col] === grid[row][col] && !mergedThisCol) {
                                 grid[k][col] *= 2;
                                 grid[row][col] = 0;
+                                Gainedpoint += grid[k][col];
                                 mergedThisCol = true;
                                 break;
                             }
@@ -103,9 +114,11 @@
                     }
                 }
             }
+            return Gainedpoint;
         }
 
         function moveDown() {
+            let Gainedpoint = 0;
             for (let col = 0; col < gridSize; col++) {
                 let mergedThisCol = false;
                 for (let row = gridSize - 2; row >= 0; row--) {
@@ -118,6 +131,7 @@
                             } else if (grid[k][col] === grid[row][col] && !mergedThisCol) {
                                 grid[k][col] *= 2;
                                 grid[row][col] = 0;
+                                Gainedpoint += grid[k][col];
                                 mergedThisCol = true;
                                 break;
                             }
@@ -125,9 +139,11 @@
                     }
                 }
             }
+            return Gainedpoint;
         }
 
         function moveLeft() {
+            let Gainedpoint = 0;
             for (let row = 0; row < gridSize; row++) {
                 let mergedThisRow = false;
                 for (let col = 1; col < gridSize; col++) {
@@ -140,6 +156,7 @@
                             } else if (grid[row][k] === grid[row][col] && !mergedThisRow) {
                                 grid[row][k] *= 2;
                                 grid[row][col] = 0;
+                                Gainedpoint += grid[k][col];
                                 mergedThisRow = true;
                                 break;
                             }
@@ -147,9 +164,11 @@
                     }
                 }
             }
+            return Gainedpoint;
         }
 
         function moveRight() {
+            let Gainedpoint = 0;
             for (let row = 0; row < gridSize; row++) {
                 let mergedThisRow = false;
                 for (let col = gridSize - 2; col >= 0; col--) {
@@ -162,6 +181,7 @@
                             } else if (grid[row][k] === grid[row][col] && !mergedThisRow) {
                                 grid[row][k] *= 2;
                                 grid[row][col] = 0;
+                                Gainedpoint += grid[k][col];
                                 mergedThisRow = true;
                                 break;
                             }
@@ -169,6 +189,7 @@
                     }
                 }
             }
+            return Gainedpoint;
         }
 
         document.addEventListener('keydown', (event) => {
@@ -178,6 +199,8 @@
         });
         document.querySelector('.restart').addEventListener('click', () => {
             createGrid();
+            score = 0;
+            updatescore(score);
             addRandomTile();
             addRandomTile();
             renderGrid();
