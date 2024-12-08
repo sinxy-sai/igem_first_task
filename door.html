@@ -14,6 +14,7 @@
             background-image: url(./assets/images/background.png);
             background-color: bisque;
             background-size: cover;
+            transition: background-color 0.5s ease-in-out;
         }
     </style>
 </head>
@@ -30,15 +31,32 @@
         <img src="./assets/images/cloud4.png" alt="">
         <img src="./assets/images/cloud2.png" alt="">
     </div>
-    <button class="theme-toggle-button">切换到黑夜模式</button>
+    <div class="theme-toggle-button"><span class="sun" id="mode"><img src="./assets/images/sun.png" alt=""></span></div>
     <script>
         document.querySelector('.theme-toggle-button').addEventListener('click', function () {
+            const img = document.querySelector('#mode img');
             if (document.body.classList.contains('night-mode')) {
                 document.body.classList.remove('night-mode');
                 document.querySelector('.wrapper a').href = "./game.html";
+                img.style.animation = 'moonDisappear 1s forwards';
+                setTimeout(() => {
+                    img.src = "./assets/images/sun.png";
+                    img.style.animation = 'sunAppear 1s forwards';
+                }, 1000);
+                setTimeout(() => {
+                    img.style.animation = '';
+                }, 2000);
             } else {
                 document.body.classList.add('night-mode');
                 document.querySelector('.wrapper a').href = "./game_night.html";
+                img.style.animation = 'sunDisappear 1s forwards';
+                setTimeout(() => {
+                    img.src = "./assets/images/moon.png";
+                    img.style.animation = 'moonAppear 1s forwards';
+                }, 1000);
+                setTimeout(() => {
+                    img.style.animation = '';
+                }, 2000);
             }
         });
     </script>

@@ -176,17 +176,70 @@
     bottom: 20px;
     right: 20px;
     padding: 10px 20px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #333;
     border: none;
     border-radius: 3px;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
 }
 
-.theme-toggle-button:hover {
-    background-color: #555;
+.theme-toggle-button img {
+    width: 100px;
+    height: 100px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.theme-toggle-button img:hover {
+    transform: scale(1.2);
+}
+
+@keyframes sunDisappear {
+    from {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(0) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes moonAppear {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes sunAppear {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes moonDisappear {
+    from {
+
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+
+    to {
+
+        transform: scale(0) rotate(360deg);
+        opacity: 0;
+    }
 }
 
 body.night-mode {
