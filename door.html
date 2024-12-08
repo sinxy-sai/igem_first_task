@@ -35,8 +35,10 @@
         document.querySelector('.theme-toggle-button').addEventListener('click', function () {
             if (document.body.classList.contains('night-mode')) {
                 document.body.classList.remove('night-mode');
+                document.querySelector('.wrapper a').href = "./game.html";
             } else {
                 document.body.classList.add('night-mode');
+                document.querySelector('.wrapper a').href = "./game_night.html";
             }
         });
     </script>
