@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>试用mathjax</title>
+    <!-- 配置MathJax -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process',
+            }
+        };
+    </script>
+    <!-- 引入MathJax -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+</head>
+
+<body>
+    <div>
+        <p class="tex2jax_ignore">
+            1. 向量的内积
+            $$
+            \vec{a} \cdot \vec{b} = \left| \vec{a} \right| \left| \vec{b} \right| \cos \theta
+            $$
+        </p>
+    </div>
+    <div>
+        <p class="tex2jax_process">
+            2. 向量的外积
+            $$
+            \vec{a} \times \vec{b} = \left| \vec{a} \right| \left| \vec{b} \right| \sin \theta \vec{n}
+            $$
+        </p>
+    </div>
+</body>
+
+</html>
