@@ -1,0 +1,242 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #faf8ef;
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+.wrapper {
+    width: 500px;
+    height: 500px;
+    border-radius: 6px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    background-color: #bbada0;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.grid-cell {
+    width: 100%;
+    height: 100%;
+    background-color: #cdc1b4;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    color: white;
+    transition: all 0.2s ease-in-out;
+}
+
+.tile {
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    background-color: #eee4da;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    color: #776e65;
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+    line-height: 90px;
+    font-weight: bold;
+    user-select: none;
+}
+
+.tile.tile-2 {
+    background-color: #eee4da;
+    color: #776e65;
+}
+
+.tile.tile-4 {
+    background-color: #ede0c8;
+    color: #776e65;
+}
+
+.tile.tile-8 {
+    background-color: #f2b179;
+    color: #f9f6f2;
+}
+
+.tile.tile-16 {
+    background-color: #f59563;
+    color: #f9f6f2;
+}
+
+.tile.tile-32 {
+    background-color: #f67c5f;
+    color: #f9f6f2;
+}
+
+.tile.tile-64 {
+    background-color: #f65e3b;
+    color: #f9f6f2;
+}
+
+.tile.tile-128 {
+    background-color: #edcf72;
+    color: #f9f6f2;
+}
+
+.tile.tile-256 {
+    background-color: #edcc61;
+    color: #f9f6f2;
+}
+
+.tile.tile-512 {
+    background-color: #edc850;
+    color: #f9f6f2;
+}
+
+.tile.tile-1024 {
+    background-color: #edc53f;
+    color: #f9f6f2;
+}
+
+.tile.tile-2048 {
+    background-color: #edc22e;
+    color: #f9f6f2;
+}
+
+.tile.tile-4096 {
+    background-color: #eec800;
+    color: #f9f6f2;
+}
+
+.tile.tile-8192 {
+    background-color: #edc53f;
+    color: #f9f6f2;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.tile.new-tile {
+    animation: appear 0.2s ease-in-out;
+}
+
+
+
+.restart {
+    position: fixed;
+    bottom: 8px;
+    left: 20px;
+    font-size: 16px;
+    color: #f67c5f;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    z-index: 10;
+
+}
+
+.restart .iconfont:hover {
+    color: #9d8b70;
+}
+
+.restart .iconfont {
+    font-size: 100px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.controls {
+    position: absolute;
+    bottom: 40px;
+    right: 20px;
+    z-index: 10;
+}
+
+.home a {
+    display: block;
+    width: 100px;
+    height: 100px;
+}
+
+.home img {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease-in-out;
+}
+
+.home img:hover {
+    transform: scale(1.1);
+}
+
+.score {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    font-size: 24px;
+    color: #776e65;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 3px;
+    z-index: 10;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.game-over {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 36px;
+    z-index: 20;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 0.3s, opacity 0.3s ease-in-out;
+    flex-direction: column;
+}
+
+.game-over.visible {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+}
+
+.game-over img {
+    max-width: 980px;
+    max-height: 295px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.game-over span.countdown {
+    font-size: 36px;
+    color: #ff6347;
+}

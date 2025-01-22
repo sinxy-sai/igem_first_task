@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048</title>
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/game.css">
+    <link rel="stylesheet" href="./iconfont/restart/iconfont.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="grid-container"></div>
+    </div>
+    <div class="controls">
+        <div class="restart"><span class="iconfont icon-zhongxinkaishi"></span></div>
+        <div class="home"><a href="./door.html"><img src="./assets/images/home.png" alt=""></a></div>
+    </div>
+    <div class="score">得分:0</div>
+    <div class="game-over">
+        <img src="./assets/images/gameover.png" alt="">
+        <span>将在 <span class="countdown">5</span> 秒后重新开始...</span>
+    </div>
+    <script>
+        const gridSize = 4;
+        let grid = [];
+        let score = 0;
+
+        function createGrid() {
+            for (let i = 0; i < gridSize; i++) {
+                grid[i] = [];
+                for (let j = 0; j < gridSize; j++) {
+                    grid[i][j] = 0;
+                }
+            }
+        }
+
+        function renderGrid() {
+            const gridContainer = document.querySelector('.grid-container');
+            gridContainer.innerHTML = '';
+            for (let row of grid) {
+                for (let cell of row) {
+                    const tile = document.createElement('div');
+                    tile.classList.add('grid-cell');
+                    if (cell !== 0) {
+                        tile.classList.add('tile', `tile-${cell}`);
+                        tile.textContent = cell;
+                        tile.classList.add(`new-tile`);
+                        setTimeout(() => tile.classList.remove('new-tile'), 200);
+                    }
+                    gridContainer.appendChild(tile);
+                }
+            }
+        }
+
+        function addRandomTile() {
+            let emptyCells = [];
+            for (let i = 0; i < gridSize; i++) {
+                for (let j = 0; j < gridSize; j++) {
+                    if (grid[i][j] === 0) {
+                        emptyCells.push({ x: i, y: j });
+                    }
+                }
+            }
+            if (emptyCells.length > 0) {
+                const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                grid[randomCell.x][randomCell.y] = Math.random() < 0.9 ? 2 : 4;
+            }
+        }
+
+        function updatescore(points) {
+            score += points;
+            document.querySelector('.score').textContent = '得分:' + score;
+        }
+
+        function moveTiles(direction) {
+            let Gainedpoint = 0;
+            switch (direction) {
+                case 'ArrowUp':
+                    Gainedpoint = moveUp();
+                    break;
+                case 'ArrowDown':
+                    Gainedpoint = moveDown();
+                    break;
+                case 'ArrowLeft':
+                    Gainedpoint = moveLeft();
+                    break;
+                case 'ArrowRight':
+                    Gainedpoint = moveRight();
+                    break;
+            }
+            addRandomTile();
+            renderGrid();
+            updatescore(Gainedpoint);
+            checkGameOver();
+        }
+
+        function moveUp() {
+            let Gainedpoint = 0;
+            for (let col = 0; col < gridSize; col++) {
+                let mergedThisCol = false;
+                for (let row = 1; row < gridSize; row++) {
+                    if (grid[row][col] !== 0) {
+                        for (let k = 0; k < row; k++) {
+                            if (grid[k][col] === 0 && !mergedThisCol) {
+                                grid[k][col] = grid[row][col];
+                                grid[row][col] = 0;
+                                break;
+                            } else if (grid[k][col] === grid[row][col] && !mergedThisCol) {
+                                grid[k][col] *= 2;
+                                grid[row][col] = 0;
+                                Gainedpoint += grid[k][col];
+                                mergedThisCol = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            return Gainedpoint;
+        }
+
+        function moveDown() {
+            let Gainedpoint = 0;
+            for (let col = 0; col < gridSize; col++) {
+                let mergedThisCol = false;
+                for (let row = gridSize - 2; row >= 0; row--) {
+                    if (grid[row][col] !== 0) {
+                        for (let k = gridSize - 1; k > row; k--) {
+                            if (grid[k][col] === 0 && !mergedThisCol) {
+                                grid[k][col] = grid[row][col];
+                                grid[row][col] = 0;
+                                break;
+                            } else if (grid[k][col] === grid[row][col] && !mergedThisCol) {
+                                grid[k][col] *= 2;
+                                grid[row][col] = 0;
+                                Gainedpoint += grid[k][col];
+                                mergedThisCol = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            return Gainedpoint;
+        }
+
+        function moveLeft() {
+            let Gainedpoint = 0;
+            for (let row = 0; row < gridSize; row++) {
+                let mergedThisRow = false;
+                for (let col = 1; col < gridSize; col++) {
+                    if (grid[row][col] !== 0) {
+                        for (let k = 0; k < col; k++) {
+                            if (grid[row][k] === 0 && !mergedThisRow) {
+                                grid[row][k] = grid[row][col];
+                                grid[row][col] = 0;
+                                break;
+                            } else if (grid[row][k] === grid[row][col] && !mergedThisRow) {
+                                grid[row][k] *= 2;
+                                grid[row][col] = 0;
+                                Gainedpoint += grid[k][col];
+                                mergedThisRow = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            return Gainedpoint;
+        }
+
+        function moveRight() {
+            let Gainedpoint = 0;
+            for (let row = 0; row < gridSize; row++) {
+                let mergedThisRow = false;
+                for (let col = gridSize - 2; col >= 0; col--) {
+                    if (grid[row][col] !== 0) {
+                        for (let k = gridSize - 1; k > col; k--) {
+                            if (grid[row][k] === 0 && !mergedThisRow) {
+                                grid[row][k] = grid[row][col];
+                                grid[row][col] = 0;
+                                break;
+                            } else if (grid[row][k] === grid[row][col] && !mergedThisRow) {
+                                grid[row][k] *= 2;
+                                grid[row][col] = 0;
+                                Gainedpoint += grid[k][col];
+                                mergedThisRow = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            return Gainedpoint;
+        }
+
+        function canMove() {
+            for (let i = 0; i < gridSize; i++) {
+                for (let j = 0; j < gridSize; j++) {
+                    if (grid[i][j] === 0) {
+                        return true;
+                    }
+                    if (i < gridSize - 1 && grid[i][j] === grid[i + 1][j]) {
+                        return true;
+                    }
+                    if (j < gridSize - 1 && grid[i][j] === grid[i][j + 1]) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        function checkGameOver() {
+            if (!canMove()) {
+                showGameOverOverlay();
+            }
+        }
+
+        function showGameOverOverlay() {
+            const overlay = document.querySelector('.game-over');
+            let countdown = 5;
+            document.querySelector('.countdown').textContent = countdown;
+            overlay.classList.add('visible');
+
+            const intervalId = setInterval(() => {
+                countdown--;
+                document.querySelector('.countdown').textContent = countdown;
+                if (countdown <= 0) {
+                    clearInterval(intervalId);
+                    restartGame();
+                }
+            }, 1000);
+        }
+
+        function restartGame() {
+            const overlay = document.querySelector('.game-over');
+            overlay.classList.remove('visible');
+            createGrid();
+            score = 0;
+            updatescore(score);
+            addRandomTile();
+            addRandomTile();
+            renderGrid();
+        }
+        document.addEventListener('keydown', (event) => {
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+                moveTiles(event.key);
+            }
+        });
+
+        document.querySelector('.restart').addEventListener('click', () => {
+            restartGame();
+        });
+        createGrid();
+        addRandomTile();
+        addRandomTile();
+        renderGrid();
+    </script>
+</body>
+
+</html>
