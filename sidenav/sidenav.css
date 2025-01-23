@@ -25,6 +25,7 @@
     width: 200px;
     background-color: #f4f4f4;
     padding-top: 50%;
+    overflow: hidden;
 }
 
 .subnav {
@@ -32,16 +33,20 @@
 }
 
 .subnav .subnav-title-1 {
+    position: relative;
     font-weight: bold;
     padding: 10px;
     cursor: pointer;
     transition: font-size 0.3s, color 0.3s;
+    z-index: 1;
 }
 
 .subnav-title-2 {
+    position: relative;
     padding: 10px 20px;
     cursor: pointer;
     display: none;
+    z-index: 1;
 }
 
 .subnav.active .subnav-title-2 {
@@ -54,4 +59,56 @@
     /* 放大字体 */
     color: #4caf50;
     /* 改变颜色 */
+}
+
+
+.subnav-title-1:hover,
+.subnav-title-2:hover {
+    color: #504c4c;
+    /* 悬停时文字变蓝 */
+    background: #fff;
+}
+
+@keyframes sweep {
+    from {
+        left: -100%;
+        background-color: transparent;
+    }
+
+    to {
+        left: 0;
+        background-color: #007bff;
+    }
+}
+
+/* 添加伪元素 */
+.subnav-title-1:before,
+.subnav-title-2:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    background-color: #007bff;
+    transform: skewX(-15deg);
+    /* 创建箭头效果 */
+    z-index: -1;
+    /* 确保伪元素在背景之上，但在文字之下 */
+    transition: left 0.6s ease;
+    opacity: 0;
+}
+
+/* 激活状态的样式 */
+.subnav-title-1.active:before,
+.subnav-title-2.active:before {
+    animation: sweep 0.6s forwards;
+    opacity: 1;
+}
+
+/* 确保激活状态下文本颜色为白色 */
+.subnav-title-1.active,
+.subnav-title-2.active {
+    color: white;
+    font-weight: bold;
 }

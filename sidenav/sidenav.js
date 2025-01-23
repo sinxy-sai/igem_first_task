@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var scrollPos = window.pageYOffset || document.documentElement.scrollTop;
         updateProgressBar(scrollPos);
         checkActiveSection(scrollPos);
-    }, 50)); // 每250毫秒最多触发一次
+    }, 250)); // 每250毫秒最多触发一次
 
     // 页面加载时立即检查一次
     var initialScrollPos = window.pageYOffset || document.documentElement.scrollTop;
@@ -104,6 +104,38 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    const navTitles = document.querySelectorAll('.subnav-title-1, .subnav-title-2');
+    navTitles.forEach(title => {
+        title.addEventListener('click', function (event) {
+            event.preventDefault(); // 阻止默认行为
+
+            // 直接从 data-target 获取目标元素的选择器
+            const targetSelector = this.getAttribute('data-target');
+            const targetElement = document.querySelector(targetSelector);
+
+            if (targetElement) {
+                // 平滑滚动到目标内容区
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+
+                // 添加 active 类以触发 CSS 过渡
+                this.classList.add('active');
+
+                // 设置一个计时器，在短暂延迟后移除 active 类
+                setTimeout(() => {
+                    this.classList.remove('active');
+                }, 600); // 600ms 后移除 active 类，可以根据需要调整时间
+
+                // 更新进度条的位置
+                setTimeout(() => {
+                    const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+                    updateProgressBar(scrollPos);
+                    checkActiveSection(scrollPos);
+                }, 300); // 等待滚动动画完成
+            } else {
+                console.error("Target element not found for selector:", targetSelector);
+            }
+        });
+    });
 
     window.addEventListener('resize', () => {
         // 更新 sectionPositions 和其他依赖于窗口尺寸的变量
@@ -118,5 +150,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
-
-document
