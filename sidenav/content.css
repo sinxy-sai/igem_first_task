@@ -1,0 +1,38 @@
+.content-box {
+    margin-left: 260px;
+    padding: 20px;
+    max-width: 800px;
+    height: 100%;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    white-space: normal;
+}
+
+.content {
+    max-width: 100%;
+    width: 100%;
+    margin-bottom: 60px;
+}
+
+.content-title-1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.content-title-2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+
+.content-text {
+    text-align: center;
+}
+
+.content-text p {
+    display: inline-block;
+    text-align: left;
+    text-indent: 2em;
+    width: 100%;
+    margin: 0 auto;
+}

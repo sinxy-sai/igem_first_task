@@ -4,116 +4,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'br'],
+            }
+        }
+    </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
     </script>
     <link rel="stylesheet" href="./sidenav.css">
     <link rel="stylesheet" href="./content.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .container {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            /* overflow: hidden; */
+        }
+    </style>
+
     <title>sidenav</title>
 </head>
 
 <body>
-    <div class="left-nav-box">
-        <div class="leftsidenav">
-            <div class="subnav" id="1">
-                <div class="subnav-title-1">向量的运算</div>
-                <div class="subnav-title-2" id="1">向量的内积</div>
-                <div class="subnav-title-2" id="2">向量的外积</div>
+    <div class="container">
+        <div class="left-nav-box">
+            <div class="progress-bar"></div>
+            <div class="leftsidenav">
+                <div class="subnav" data-section="section1">
+                    <div class="subnav-title-1" data-target="#content1">向量的相关定义</div>
+                    <div class="subnav-title-2" data-target="#content1-1">有向线段</div>
+                    <div class="subnav-title-2" data-target="#content1-2">向量的模</div>
+                </div>
+                <div class="subnav" data-section="section2">
+                    <div class="subnav-title-1" data-target="#content2">向量的运算</div>
+                    <div class="subnav-title-2" data-target="#content2-1">向量的内积</div>
+                    <div class="subnav-title-2" data-target="#content2-2">向量的外积</div>
+                </div>
+                <div class="subnav" data-section="section3">
+                    <div class="subnav-title-1" data-target="#content3">向量定理</div>
+                    <div class="subnav-title-2" data-target="#content3-1">三点共线定理</div>
+                    <div class="subnav-title-2" data-target="#content3-2">垂直定理</div>
+                </div>
+                <div class="subnav" data-section="section4">
+                    <div class="subnav-title-1" data-target="#content4">向量空间</div>
+                    <div class="subnav-title-2" data-target="#content4-1">同构</div>
+                    <div class="subnav-title-2" data-target="#content4-2">映射</div>
+                </div>
             </div>
-            <div class="subnav" id="2">
-                <div class="subnav-title-1">向量的运算</div>
-                <div class="subnav-title-2" id="1">向量的内积</div>
-                <div class="subnav-title-2" id="2">向量的外积</div>
+        </div>
+        <div class="content-box">
+            <div class="content" id="section1">
+                <div class="content-title-1" id="content1">向量的相关定义</div>
+                <div class="content-title-2" id="content1-1">
+                    1.有向线段
+                </div>
+                <div class="content-text">
+                    <p>
+                        $$
+                        A规定若线段AB的端点为起点， B为终点，则线段就具有了从起点A到终点B的方向和长度。具有方向和长度的线段叫做有向线段。
+                        $$
+                    </p>
+                </div>
+                <div class="content-title-2" id="content1-2">
+                    2. 向量的模
+                </div>
+                <div class="content-text">
+                    <p>
+                        $$
+                        向量的大小，也就是向量的长度(或称模)。向量a的模记作\vert{a}\vert。
+                        $$<br>
+                        注:
+                        $$
+                        1．向量的模是非负实数，向量的模是可以比较大小的。向量\vec{a} = (x,y) ，\vert\vec{a}\vert = \sqrt{x^2+y^2} 。
+                        $$<br>
+                        $$
+                        2.因为方向不能比较大小，所以向量也就不能比较大小。对于向量来说大于和小于的概念是没有意义的。例如\vec{AB} \gt \vec{CD} 是没有意义的。
+                        $$
+                    </p>
+                </div>
             </div>
-            <div class="subnav" id="3">
-                <div class="subnav-title-1">向量的运算</div>
-                <div class="subnav-title-2" id="1">向量的内积</div>
-                <div class="subnav-title-2" id="2">向量的外积</div>
+            <div class="content" id="section2">
+                <div class="content-title-1" id="content2">向量的运算</div>
+                <div class="content-title-2" id="content2-1">
+                    1. 向量的内积
+                </div>
+                <div class="content-text">
+                    <p>
+                        $$
+                        \vec{a} \cdot \vec{b} = \left| \vec{a} \right| \left| \vec{b} \right| \cos \theta
+                        $$
+                        <br>
+                        $$
+                        \vec{a} \cdot \vec{b} = \left| \vec{a} \right| \left| \vec{b} \right| \cos \theta
+                        $$
+                    </p>
+                </div>
+                <div class="content-title-2" id="content2-2">
+                    2. 向量的外积
+                </div>
+                <div class="content-text">
+                    <p>
+                        $$
+                        \vec{a} \times \vec{b} = \left| \vec{a} \right| \left| \vec{b} \right| \sin \theta \vec{n}
+                        $$
+                        <br>
+                        $$
+                        \vec{a} \times \vec{b} = \left| \vec{a} \right| \left| \vec{b} \right| \sin \theta \vec{n}
+                        $$
+                    </p>
+                </div>
             </div>
-            <div class="subnav" id="4">
-                <div class="subnav-title-1">向量的运算</div>
-                <div class="subnav-title-2" id="1">向量的内积</div>
-                <div class="subnav-title-2" id="2">向量的外积</div>
+            <div class="content" id="section3">
+                <div class="content-title-1" id="content3">向量定理</div>
+                <div class="content-title-2" id="content3-1">
+                    1. 三点共线定理
+                </div>
+                <div class="content-text">
+                    <p>
+                        $$
+                        已知O是AB所在直线外一点，若\vec{OC} = \lambda\vec{OA}+\mu\vec{OB}，且\lambda+\mu = 1，则A、B、C三点共线。
+                        $$
+                        <br>
+                        $$
+                        已知O是AB所在直线外一点，若\vec{OC} = \lambda\vec{OA}+\mu\vec{OB}，且\lambda+\mu = 1，则A、B、C三点共线。
+                        $$
+                    </p>
+                </div>
+                <div class="content-title-2" id="content3-2">
+                    2. 垂直定理
+                </div>
+                <div class="content-text">
+                    <p>
+                        $$
+                        \vec{a} \bot \vec{b}的充要条件是 \vec{a}\cdot\vec{b}=0，即(x_1x_2+y_1y_2)=0 。
+                        $$
+                        <br>
+                        $$
+                        \vec{a} \bot \vec{b}的充要条件是 \vec{a}\cdot\vec{b}=0，即(x_1x_2+y_1y_2)=0 。
+                        $$
+                    </p>
+                </div>
+            </div>
+            <div class="content" id="section4">
+                <div class="content-title-1" id="content4">向量空间</div>
+                <div class="content-title-2" id="content4-1">
+                    1. 同构
+                </div>
+                <div class="content-text">
+                    <p>
+                        $$
+                        给定域F上的两个向量空间V与V' ，如果存在一个双射\varphi(\alpha\vec{u}+b\vec{v}) =
+                        \alpha\varphi(\vec{u})+b\varphi(\vec{v})，\alpha,b\epsilon F并且
+                        \vec{u},\vec{v}\epsilon V 。这样V与V' 便是同构的。
+                        $$
+                        <br>
+                        $$
+                        给定域F上的两个向量空间V与V' ，如果存在一个双射\varphi(\alpha\vec{u}+b\vec{v}) =
+                        \alpha\varphi(\vec{u})+b\varphi(\vec{v})，\alpha,b\epsilon F并且
+                        \vec{u},\vec{v}\epsilon V 。这样V与V' 便是同构的。
+                        $$
+                        <br>
+                        $$
+                        给定域F上的两个向量空间V与V' ，如果存在一个双射\varphi(\alpha\vec{u}+b\vec{v}) =
+                        \alpha\varphi(\vec{u})+b\varphi(\vec{v})，\alpha,b\epsilon F并且
+                        \vec{u},\vec{v}\epsilon V 。这样V与V' 便是同构的。
+                        $$
+                    </p>
+                </div>
+                <div class="content-title-2" id="content4-2">
+                    2. 映射
+                </div>
+                <div class="content-text">
+                    <p> 给两个向量空间V和W在同一个F场，设定由V到W的线性变换或“线性映射” ，这些由V到W的映射都有共同点就是它们保持总和及标量商数。这个集合包含所有由V到W的线性映像，以
+                        L(V,W)来描述，也是一个F场里的向量空间。当V及W被确定后，线性映射可以用矩阵来表达。同构是一对一的一张线性映射。如果在V
+                        和W之间存在同构，我们称这两个空间为同构。一个在F场的向量空间加上线性映像就可以构成一个范畴，即阿贝尔范畴。</p><br><br>
+                    <p> 给两个向量空间V和W在同一个F场，设定由V到W的线性变换或“线性映射” ，这些由V到W的映射都有共同点就是它们保持总和及标量商数。这个集合包含所有由V到W的线性映像，以
+                        L(V,W)来描述，也是一个F场里的向量空间。当V及W被确定后，线性映射可以用矩阵来表达。同构是一对一的一张线性映射。如果在V
+                        和W之间存在同构，我们称这两个空间为同构。一个在F场的向量空间加上线性映像就可以构成一个范畴，即阿贝尔范畴。</p><br><br>
+                    <p>
+                        给两个向量空间V和W在同一个F场，设定由V到W的线性变换或“线性映射” ，这些由V到W的映射都有共同点就是它们保持总和及标量商数。这个集合包含所有由V到W的线性映像，以
+                        L(V,W)来描述，也是一个F场里的向量空间。当V及W被确定后，线性映射可以用矩阵来表达。同构是一对一的一张线性映射。如果在V
+                        和W之间存在同构，我们称这两个空间为同构。一个在F场的向量空间加上线性映像就可以构成一个范畴，即阿贝尔范畴。
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-    <div class="content-box">
-        <div class="content" id="1">
-            <div class="content-title-1">向量的运算</div>
-            <div class="content-title-2" id="1">
-                1. 向量的内积
-            </div>
-            <div class="content-text">
-                $$
-                \vec{a} \cdot \vec{b} = \left| \vec{a} \right| \left| \vec{b} \right| \cos \theta
-                $$
-            </div>
-            <div class="content-title-2" id="2">
-                2. 向量的外积
-            </div>
-            <div class="content-text">
-                $$
-                \vec{a} \times \vec{b} = \left| \vec{a} \right| \left| \vec{b} \right| \sin \theta \vec{n}
-                $$
-            </div>
-        </div>
-        <div class="content" id="2">
-            <div class="content-title-1">向量的运算</div>
-            <div class="content-title-2" id="1">
-                1. 向量的内积
-            </div>
-            <div class="content-text">
-                $$
-                \vec{a} \cdot \vec{b} = \left| \vec{a} \right| \left| \vec{b} \right| \cos \theta
-                $$
-            </div>
-            <div class="content-title-2" id="2">
-                2. 向量的外积
-            </div>
-            <div class="content-text">
-                $$
-                \vec{a} \times \vec{b} = \left| \vec{a} \right| \left| \vec{b} \right| \sin \theta \vec{n}
-                $$
-            </div>
-        </div>
-        <div class="content" id="3">
-            <div class="content-title-1">向量的运算</div>
-            <div class="content-title-2" id="1">
-                1. 向量的内积
-            </div>
-            <div class="content-text">
-                $$
-                \vec{a} \cdot \vec{b} = \left| \vec{a} \right| \left| \vec{b} \right| \cos \theta
-                $$
-            </div>
-            <div class="content-title-2" id="2">
-                2. 向量的外积
-            </div>
-            <div class="content-text">
-                $$
-                \vec{a} \times \vec{b} = \left| \vec{a} \right| \left| \vec{b} \right| \sin \theta \vec{n}
-                $$
-            </div>
-        </div>
-        <div class="content" id="4">
-            <div class="content-title-1">向量的运算</div>
-            <div class="content-title-2" id="1">
-                1. 向量的内积
-            </div>
-            <div class="content-text">
-                $$
-                \vec{a} \cdot \vec{b} = \left| \vec{a} \right| \left| \vec{b} \right| \cos \theta
-                $$
-            </div>
-            <div class="content-title-2" id="2">
-                2. 向量的外积
-            </div>
-            <div class="content-text">
-                $$
-                \vec{a} \times \vec{b} = \left| \vec{a} \right| \left| \vec{b} \right| \sin \theta \vec{n}
-                $$
-            </div>
-        </div>
-        <script src="./sidenav.js"></script>
+
+    <script src="./sidenav.js"></script>
 </body>
 
 </html>
