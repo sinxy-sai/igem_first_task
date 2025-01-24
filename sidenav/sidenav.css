@@ -76,7 +76,7 @@
     }
 
     to {
-        left: 0;
+        left: -5%;
         background-color: #007bff;
     }
 }
@@ -95,14 +95,13 @@
     /* 创建箭头效果 */
     z-index: -1;
     /* 确保伪元素在背景之上，但在文字之下 */
-    transition: left 0.6s ease;
     opacity: 0;
 }
 
 /* 激活状态的样式 */
 .subnav-title-1.active:before,
 .subnav-title-2.active:before {
-    animation: sweep 0.6s forwards;
+    animation: sweep 0.4s forwards;
     opacity: 1;
 }
 
@@ -111,4 +110,5 @@
 .subnav-title-2.active {
     color: white;
     font-weight: bold;
+    font-size: 1.2em;
 }

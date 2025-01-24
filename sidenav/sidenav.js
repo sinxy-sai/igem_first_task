@@ -3,12 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var navSections = document.querySelectorAll('.subnav');
     var progressBar = document.querySelector('.progress-bar');
 
-    // 计算每个section的顶部和底部位置
-    var sectionPositions = Array.from(sections).map(section => ({
-        top: section.offsetTop,
-        bottom: section.offsetTop + section.offsetHeight
-    }));
-
     function updateProgressBar(scrollTop) {
         const documentHeight = document.documentElement.scrollHeight;
         const windowHeight = window.innerHeight;
@@ -29,81 +23,41 @@ document.addEventListener('DOMContentLoaded', function () {
         progressBar.style.height = `${Math.min(100, Math.max(0, progress))}%`;
     }
 
-    function checkActiveSection(scrollPos) {
+    // 修正后的 checkActiveSection 函数
+    function checkActiveSection() {
         // 移除所有导航项的 active 类
         navSections.forEach(nav => nav.classList.remove('active'));
 
-        // 找到当前最接近的 section 并激活对应的导航项
+        // 遍历所有 section，检查当前视窗内的激活区域
         for (let i = 0; i < sections.length; i++) {
-            if (scrollPos >= sectionPositions[i].top && scrollPos < sectionPositions[i].bottom) {
-                let correspondingNav = Array.from(navSections).find(nav =>
-                    nav.getAttribute('data-section') === sections[i].id
-                );
-                if (correspondingNav) {
-                    correspondingNav.classList.add('active');
-                }
-                break;
+            const section = sections[i];
+            const sectionRect = section.getBoundingClientRect();
+            const navSection = Array.from(navSections).find(nav => nav.getAttribute('data-section') === section.id);
+
+            // 判断 section 是否在视窗内
+            const isInView =
+                sectionRect.top <= 15 && // 距离顶部小于 1px
+                sectionRect.bottom > 0; // 距离底部大于 0px
+
+            if (isInView && navSection) {
+                navSection.classList.add('active');
+                return; // 找到激活区域后退出循环
             }
         }
     }
 
-    // 使用节流函数限制滚动事件频率
-    function throttle(fn, wait) {
-        let time = Date.now();
-        return function (...args) {
-            if ((time + wait - Date.now()) < 0) {
-                fn(...args);
-                time = Date.now();
-            }
-        };
-    }
-
-
-    window.addEventListener('scroll', throttle(function () {
+    window.addEventListener('scroll', function () {
         var scrollPos = window.pageYOffset || document.documentElement.scrollTop;
         updateProgressBar(scrollPos);
-        checkActiveSection(scrollPos);
-    }, 250)); // 每250毫秒最多触发一次
+        checkActiveSection();
+    });
 
     // 页面加载时立即检查一次
     var initialScrollPos = window.pageYOffset || document.documentElement.scrollTop;
     updateProgressBar(initialScrollPos);
-    checkActiveSection(initialScrollPos);
+    checkActiveSection();
 
-    // 点击导航标题跳转到相应的内容区
-    document.querySelectorAll('.subnav-title-1, .subnav-title-2').forEach(title => {
-        title.addEventListener('click', function (event) {
-            event.preventDefault();
-
-            // 直接从 data-target 获取目标元素的 ID
-            const data_targetId = this.getAttribute('data-target');
-            let targetElementId;
-            if (data_targetId.includes('-')) {
-                targetElementId = `${data_targetId}`; // 对应 .content-title-2
-            } else {
-                targetElementId = `#section${data_targetId[8]}`; // 对应 .content-title-1
-            }
-            const targetElement = document.querySelector(targetElementId);
-
-            if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth' });
-
-                // 更新当前激活的导航项
-                navSections.forEach(nav => nav.classList.remove('active'));
-                this.closest('.subnav').classList.add('active');
-
-                // 更新进度条的位置
-                setTimeout(() => {
-                    const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
-                    updateProgressBar(scrollPos);
-                    checkActiveSection(scrollPos);
-                }, 300);
-            } else {
-                console.error("Target element not found for target ID:", targetElementId);
-            }
-        });
-    });
-
+    // 点击导航标题时添加高亮效果
     const navTitles = document.querySelectorAll('.subnav-title-1, .subnav-title-2');
     navTitles.forEach(title => {
         title.addEventListener('click', function (event) {
@@ -117,26 +71,42 @@ document.addEventListener('DOMContentLoaded', function () {
                 // 平滑滚动到目标内容区
                 targetElement.scrollIntoView({ behavior: 'smooth' });
 
-                // 添加 active 类以触发 CSS 过渡
+                // 确保父级 .subnav 的 active 类被正确设置
+                const parentSubnav = this.closest('.subnav');
+                parentSubnav.classList.add('active');
+
+                // 移除其他.subnav 的 active 类
+                navSections.forEach(nav => {
+                    if (nav !== parentSubnav) {
+                        nav.classList.remove('active');
+                    }
+                });
+
+                // 添加 active 类以触发动画
                 this.classList.add('active');
 
-                // 设置一个计时器，在短暂延迟后移除 active 类
-                setTimeout(() => {
-                    this.classList.remove('active');
-                }, 600); // 600ms 后移除 active 类，可以根据需要调整时间
+                // 设置标志位，确保动画不会被重复触发
+                let isAnimating = true;
 
-                // 更新进度条的位置
+                const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+                updateProgressBar(scrollPos);
+                checkActiveSection();
+
+                // 动画完成后移除 active 类
                 setTimeout(() => {
-                    const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
-                    updateProgressBar(scrollPos);
-                    checkActiveSection(scrollPos);
-                }, 300); // 等待滚动动画完成
+                    if (isAnimating) {
+                        this.classList.remove('active');
+                        isAnimating = false; // 重置标志位
+                    }
+                }, 1200); // 动画持续时间（与 CSS 动画时间一致）
+
             } else {
                 console.error("Target element not found for selector:", targetSelector);
             }
         });
     });
 
+    // 监听窗口大小调整事件
     window.addEventListener('resize', () => {
         // 更新 sectionPositions 和其他依赖于窗口尺寸的变量
         sectionPositions = Array.from(sections).map(section => ({
@@ -147,6 +117,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // 重新调用 updateProgressBar 函数来更新进度条
         var scrollPos = window.pageYOffset || document.documentElement.scrollTop;
         updateProgressBar(scrollPos);
+        checkActiveSection();
     });
-
 });
