@@ -1,7 +1,7 @@
 .news {
     width: 100%;
     height: 800px;
-    background-image: url(../images/bg.png);
+    background-image: url(../images/bg1.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -165,6 +165,24 @@
 
 .news .left-content ul {
     display: flex;
+    transform: translateY(100%);
+    opacity: 0;
+}
+
+@keyframes newsslideIn {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.news-slide-in {
+    animation: newsslideIn 1s ease-out forwards;
 }
 
 .news .left-content li {
@@ -259,3 +277,125 @@
     transform: scale(1.1);
     cursor: pointer;
 }
+
+.news .right-content .media {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.news .right-content.media a {
+    display: block;
+}
+
+.news .right-content .media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    transition: all 0.5s ease;
+}
+
+.news .right-content .media:hover img {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.news .right-content .media .text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    padding: 10px 5px;
+    overflow: hidden;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+}
+
+.news .right-content .media .text h1 {
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.news .right-content .media .text p {
+    font-size: 12px;
+    color: #fff;
+    opacity: 0.8;
+}
+
+.news .right-content ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+@keyframes mediaslideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.media-slide-in {
+    animation: mediaslideIn 1s ease-out forwards;
+}
+
+.news .right-content li {
+    width: 100%;
+    margin-top: 20px;
+    transition: all 0.5s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.news .right-content li::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #ff6347;
+    transition: all 0.5s ease;
+}
+
+.news .right-content li:hover::after {
+    width: 50%;
+}
+
+.news .right-content li a {
+    display: block;
+}
+
+.news .right-content li h1 {
+    font-size: 16px;
+    color: #fff;
+    margin: 0;
+    transition: all 0.5s ease;
+}
+
+.news .right-content li p {
+    font-size: 18px;
+    color: #000;
+    margin: 0;
+    transition: all 0.5s ease;
+}
+
+.news .right-content li:hover h1,
+.news .right-content li:hover p {
+    color: #ff6347;
+    transform: translateY(-5px);
+}
+
+/* sidenav */
