@@ -1,0 +1,16 @@
+{
+  "id": "4773240",
+  "name": "igem",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "12553172",
+      "name": "回到顶部",
+      "font_class": "huidaodingbu",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    }
+  ]
+}
