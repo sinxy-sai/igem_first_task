@@ -1,0 +1,99 @@
+.endfooter {
+    width: 100vw;
+    background-color: #590d56;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+.endfooter ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+dd a {
+    color: #fff;
+}
+
+.logo {
+    text-align: center;
+}
+
+.copyright,
+.contact {
+    background-color: #390336;
+}
+
+.copyright a {
+    color: #fff;
+}
+
+.part1 {
+    padding: 20px 40px;
+    display: flex;
+}
+
+.info {
+    width: 50%;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.info dt {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.info dd {
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
+
+.social {
+    width: 50%;
+    padding: 20px 40px;
+}
+
+.social ul {
+    justify-content: space-around;
+}
+
+.social a {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.social i {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background-color: #2b2828;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.social .iconfont {
+    line-height: 50px;
+    font-size: 26px;
+    color: #fff;
+}
+
+.social img {
+    width: 150px;
+    height: 150px;
+}
+
+.logo {
+    margin-bottom: 20px;
+}
+
+.copyright ul {
+    justify-content: space-around;
+}
+
+.copyright {
+    padding: 20px 100px;
+    font-size: 16px;
+}
