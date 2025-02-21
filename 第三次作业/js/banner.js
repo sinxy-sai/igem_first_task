@@ -1,3 +1,9 @@
+
+
+const banner = document.querySelector('.banner')
+banner.style.height = `${window.innerHeight - document.querySelector('.nav').clientHeight}px`
+// console.log(window.innerHeight);
+// console.log(window.innerHeight - document.querySelector('.nav').clientHeight);
 const img = document.querySelector('.banner img');
 let i = 0
 const next = document.querySelector('.next');
@@ -71,7 +77,7 @@ indicators.forEach((indicator, index) => {
 });
 
 //let num = setInterval(change, 4000); // 直接调用 change 函数
-const banner = document.querySelector('.banner')
+
 let num = setInterval(function () {
     i++;
     if (i > images.length - 1) {

@@ -1,6 +1,6 @@
 .article {
     width: 100%;
-    height: 2000px;
+    height: auto;
     position: relative;
     overflow: hidden;
     z-index: 1;
@@ -25,20 +25,21 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.8);
     z-index: 1;
 }
 
 .article .wrapper {
     padding-top: 100px;
+    padding-bottom: 100px;
     margin: 0 auto;
     width: 1500px;
     height: 100%;
-    background-color: pink;
     position: relative;
     /* 确保position设置为relative或其他非static值 */
     z-index: 2;
     /* 将z-index提高以确保它位于其他元素之上 否则它会被透明影响*/
+    display: flex;
 }
 
 /* backtop按键 */
@@ -105,4 +106,211 @@
 
 .article .backtop:hover .iconfont {
     color: #ff6374;
+}
+
+
+/* text */
+
+/* section1 */
+.article .text {
+    width: 75%;
+    height: 100%;
+    padding-left: 60px;
+    padding-right: 30px;
+}
+
+
+
+.article .text h1 {
+    width: 100%;
+    font-size: 27.72px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.article .text h1.section-title {
+    font-size: 30px;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.article .text h1.section-subtitle {
+    font-size: 25px;
+    margin-bottom: 12px;
+    text-align: left;
+    padding-left: 1em;
+    padding-top: 1em;
+}
+
+.article .text strong {
+    font-weight: 700;
+}
+
+.article .text em {
+    font-style: italic;
+}
+
+.article .text p {
+    margin-top: 20px;
+    text-indent: 2em;
+    font-size: 18px;
+}
+
+.article .text img {
+    display: block;
+    margin: 30px auto;
+}
+
+.article .text p[label="图片说明"] {
+    font-family: 楷体, 楷体_GB2312, SimKai;
+    padding: 0.45em 0px;
+    text-align: center !important;
+    text-indent: 0px;
+}
+
+.article .text iframe {
+    display: block;
+    width: 80%;
+    height: 800px;
+    margin: 20px auto;
+}
+
+.article .text p[label="表格说明"] {
+    font-family: 楷体, 楷体_GB2312, SimKai;
+    padding: 0.45em 0px;
+    text-align: center !important;
+    text-indent: 0px;
+}
+
+.article .text table {
+    width: 80%;
+    margin: 10px auto;
+    border-collapse: collapse;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.article .text table th,
+.article .text table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.article .text table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #333;
+}
+
+.article .text table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.article .text table tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.article .text table tr:hover {
+    background-color: #e1f5fe;
+}
+
+.article .text table {
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    font-size: 18px;
+}
+
+/* sidenav */
+.article .sidenav {
+    width: 25%;
+    height: 700px;
+    padding: 30px 30px;
+    box-sizing: border-box;
+    background-color: #fffaf4;
+    overflow: auto;
+    border-right: 1px solid #ddd;
+    transition: background-color 0.5s ease
+}
+
+.article .sidenav ul {
+    height: 100%;
+}
+
+.article .sidenav a {
+    display: block;
+    /* height: 30px; */
+    font-size: 24px;
+    /* line-height: 30px; */
+    color: #333;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.article .sidenav a:hover,
+.article .sidenav a.active {
+    background-color: #ff6374;
+    /* 悬停时的背景颜色 */
+    color: #fff;
+    /* 悬停时的文字颜色 */
+    cursor: pointer;
+    /* 鼠标指针样式 */
+}
+
+.article .sidenav .sidesubnav {
+    display: none;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.article .sidenav .sidesubnav a {
+    font-size: 18px;
+    color: #666;
+    line-height: 1.5;
+    padding: 5px 0;
+    transition: color 0.5s ease;
+}
+
+.article .sidenav .sidesubnav a:hover,
+.article .sidenav .sidesubnav a.active {
+    color: #fffaf4;
+    /* 子导航悬停时的文字颜色 */
+}
+
+.article .sidenav li:hover .sidesubnav,
+.article .sidenav li .sidesubnav.show {
+    display: block;
+    animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.article .sidenav-fixed {
+    position: fixed;
+    top: 80px;
+    right: 90px;
+}
+
+.article .sidenav-unfixed {
+    position: relative;
 }
